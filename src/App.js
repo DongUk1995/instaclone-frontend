@@ -2,25 +2,28 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./screens/Home";
 import Login from "./screens/Login";
 import NotFound from "./screens/NotFound";
-import { useState } from "react";
+import { useReactiveVar } from "@apollo/client";
+import { darkModeVar, isLoggedInVar } from "./screens/apollo";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyles, darkTheme, lightTheme } from "./styles";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const isLoggedIn = useReactiveVar(isLoggedInVar);
+  const darkMode = useReactiveVar(darkModeVar);
   return (
-    <Router>
-      <Switch>
-        <Route path="/" exact>
-          {isLoggedIn ? (
-            <Home setIsLoggedIn={setIsLoggedIn} />
-          ) : (
-            <Login setIsLoggedIn={setIsLoggedIn} />
-          )}
-        </Route>
-        <Route>
-          <NotFound />
-        </Route>
-      </Switch>
-    </Router>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <Router>
+        <Switch>
+          <Route path="/" exact>
+            {isLoggedIn ? <Home /> : <Login />}
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
+        </Switch>
+      </Router>
+      <GlobalStyles />
+    </ThemeProvider>
   );
 }
 
