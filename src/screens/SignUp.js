@@ -7,11 +7,11 @@ import Input from "../components/auth/Input";
 import FormBox from "../components/auth/FormBox";
 import BottomBox from "../components/auth/BottomBox";
 import styled from "styled-components";
-import { FatLink } from "../components/shared";
 import PageTitle from "../components/PageTitle";
 import { useForm } from "react-hook-form";
 import { gql, useMutation } from "@apollo/client";
 import { useHistory } from "react-router-dom";
+import { FatLink } from "../shared";
 
 const HeaderContainer = styled.div`
   display: flex;
