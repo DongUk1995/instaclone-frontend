@@ -44,6 +44,12 @@ const authLink = new ApolloLink((operation, forward) => {
 export const darkModeVar = makeVar(Boolean(localStorage.getItem(DARK_MODE)));
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      User: {
+        keyFields: (obj) => `User:${obj.username}`,
+      },
+    },
+  }),
   connectToDevTools: true,
 });

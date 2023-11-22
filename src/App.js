@@ -10,6 +10,7 @@ import routes from "./routes";
 import { HelmetProvider } from "react-helmet-async";
 import NotFound from "./screens/NotFound";
 import Layout from "./components/Layout";
+import Profile from "./screens/Profile";
 function App() {
   const isLoggedIn = useReactiveVar(isLoggedInVar);
   const darkMode = useReactiveVar(darkModeVar);
@@ -34,6 +35,11 @@ function App() {
                   <SignUp />
                 </Route>
               ) : null}
+              <Route path={`/users/:username`}>
+                <Layout>
+                  <Profile />
+                </Layout>
+              </Route>
               <Route>
                 <NotFound />
               </Route>
